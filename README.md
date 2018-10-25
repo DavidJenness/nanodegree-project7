@@ -1,3 +1,5 @@
+# Udacity FEND Project 7
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 You will need to create a file in the root directory called .env that should look like this:
