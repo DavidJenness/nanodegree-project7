@@ -16,7 +16,7 @@ class App extends Component {
         </header> */}
 
 
-<Map/>
+<Map lat="33.044569"/>
 
 
         
