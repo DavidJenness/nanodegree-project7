@@ -1,14 +1,19 @@
 import React, { Component } from "react"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
-import Listing from "./Listing";
+// import Listing from "./Listing";
 
 const MyMapComponent = withScriptjs(withGoogleMap((props) =>
     <GoogleMap
-        defaultZoom={15}
-        defaultCenter={{ lat: 33.044569, lng: -97.044676 }}
+        defaultZoom={14}
+        defaultCenter={{ lat: 33.056146, lng: -97.065747 }}
     >
-        {props.isMarkerShown && <Marker position={{ lat: parseFloat(props.lat), lng: -97.044676 }} />}
-        {console.log(props.lat)}
+        {props.isMarkerShown && <Marker position={{ lat: 33.065145, lng: -97.080881 } } /> } {/*Starwood*/}
+        {props.isMarkerShown && <Marker position={{ lat: 33.072347, lng: -97.059849 } } /> } {/*Seven Mile Cafe*/}
+        {props.isMarkerShown && <Marker position={{ lat: 33.047154, lng: -97.070295 } } /> } {/*Mi Dia from Scratch*/}
+        {props.isMarkerShown && <Marker position={{ lat: 33.073760, lng: -97.063936 } } /> } {/*Frescos*/}
+        {props.isMarkerShown && <Marker position={{ lat: 33.074307, lng: -97.068947 } } /> } {/*What's On Tap*/}
+        {props.isMarkerShown && <Marker position={{ lat: 33.033979, lng: -97.072304 } } /> } {/*Local Pint*/}
+
     </GoogleMap>
 ))
 
@@ -20,7 +25,6 @@ export default class Map extends Component {
         return (
             <MyMapComponent
                 isMarkerShown
-                lat={this.props.lat}
                 googleMapURL={myURL}
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div style={{ height: window.innerHeight }} />}
