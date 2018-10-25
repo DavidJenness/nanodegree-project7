@@ -6,6 +6,12 @@ import Map from './components/Map';
 
 class App extends Component {
 
+constructor() {
+  super();
+  this.state = {
+    markers: []
+  }
+}
 
 
 
@@ -16,7 +22,7 @@ class App extends Component {
         </header> */}
 
 
-<Map lat="33.044569"/>
+<Map/>
 
 
         
