@@ -21,7 +21,7 @@ const MyMapComponent = withScriptjs(
           key={marker.uniqueID}
           onClick={() => console.log(marker.uniqueID)}
         >
-          <InfoWindow key={marker.name} visible={true}>
+          <InfoWindow key={marker.name} visible={false}>
             <div>{marker.name}</div>
           </InfoWindow>
         </Marker>

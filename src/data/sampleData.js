@@ -6,7 +6,7 @@ export const pointsOfInterest = [
         lat: 33.065145,
         lng: -97.080881,
         cuisine: "Breakfast",
-        clicked: 0
+        clicked: false
     },
 
 
@@ -16,7 +16,7 @@ export const pointsOfInterest = [
         lat: 33.072347,
         lng: -97.059849,
         cuisine: "Breakfast",
-        clicked: 0
+        clicked: false
     },
 
 
@@ -26,7 +26,7 @@ export const pointsOfInterest = [
         lat: 33.047154,
         lng: -97.070295,
         cuisine: "Mexican",
-        clicked: 0
+        clicked: false
     },
 
 
@@ -36,7 +36,7 @@ export const pointsOfInterest = [
         lat: 33.073760,
         lng: -97.063936,
         cuisine: "Mexican",
-        clicked: 0
+        clicked: false
     },
 
 
@@ -46,7 +46,7 @@ export const pointsOfInterest = [
         lat: 33.074307,
         lng: -97.068947,
         cuisine: "Bar",
-        clicked: 0
+        clicked: false
     },
 
 
@@ -56,6 +56,6 @@ export const pointsOfInterest = [
         lat: 33.033979,
         lng: -97.072304,
         cuisine: "Bar",
-        clicked: 0
+        clicked: false
     }
 ]
