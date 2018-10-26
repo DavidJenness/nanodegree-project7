@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 import './App.css';
 import Map from './components/Map';
+import {pointsOfInterest} from './data/sampleData'
 
 
 class App extends Component {
@@ -10,6 +10,7 @@ constructor() {
   super();
   this.state = {
     markers: []
+    
   }
 }
 
@@ -22,7 +23,7 @@ constructor() {
         </header> */}
 
 
-<Map/>
+<Map locations={pointsOfInterest}/>
 
 
         
