@@ -19,18 +19,18 @@ const MyMapComponent = withScriptjs(
           position={{ lat: marker.lat, lng: marker.lng }}
           title={marker.name}
           key={marker.uniqueID}
-          onClick={props.onClickFunction}
-        />
+          onClick={() => console.log(marker.uniqueID)}
+        >
+          <InfoWindow key={marker.name} visible={true}>
+            <div>{marker.name}</div>
+          </InfoWindow>
+        </Marker>
       ))}
     </GoogleMap>
   ))
 );
 
 export default class Map extends Component {
-  handleOnClick() {
-    console.log("Clicked");
-  }
-
   render() {
     let myURL =
       "https://maps.googleapis.com/maps/api/js?v=3.exp&key=" +
@@ -39,7 +39,6 @@ export default class Map extends Component {
       <MyMapComponent
         isMarkerShown
         locations={this.props.locations}
-        onClickFunction={this.handleOnClick}
         googleMapURL={myURL}
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<div style={{ height: window.innerHeight }} />}
