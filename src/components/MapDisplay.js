@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
+import { Information } from "./Information";
 
 export class MapDisplay extends Component {
   state = {
@@ -50,7 +51,7 @@ export class MapDisplay extends Component {
           visible={this.state.showingInfoWindow}
         >
           <div>
-            <h1>{this.state.selectedPlace.name}</h1>
+            <Information selectedPlace={this.state.selectedPlace}/>
           </div>
         </InfoWindow>
       </Map>
