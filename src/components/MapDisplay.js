@@ -52,6 +52,8 @@ export class MapDisplay extends Component {
                   key={marker.uniqueID}
                   onClick={this.onMarkerClick}
                   name={marker.name}
+                  cuisine={marker.cuisine}
+                  uniqueID={marker.uniqueID}
                 />
               ))}
 

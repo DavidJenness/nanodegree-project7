@@ -5,7 +5,8 @@ export class Information extends Component {
     return (
       <div>
         <h1>{this.props.selectedPlace.name}</h1>
-        <p>{this.props.selectedPlace.name}</p>
+        <p>{this.props.selectedPlace.cuisine}</p>
+        <p>{this.props.selectedPlace.uniqueID}</p>
       </div>
     );
   }
