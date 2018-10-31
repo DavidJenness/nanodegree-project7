@@ -40,6 +40,14 @@
   background: tan;
 }
 
+.listItem {
+padding: 5px;
+}
+
+.list-item-header {
+  color: red;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

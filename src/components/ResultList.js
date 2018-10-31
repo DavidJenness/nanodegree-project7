@@ -6,6 +6,8 @@ export default class ResultList extends Component {
     render() {
         return <div>
             <ListItem/>
+            <ListItem/>
+            <ListItem/>
         </div>
 
     }
