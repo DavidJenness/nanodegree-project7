@@ -19,8 +19,8 @@ export default class ResultList extends Component {
             onChange={this.handleChange}
           />
         </form>
-        {this.props.locations.map(myLocation => (
-          <ListItem myLocation={myLocation} />
+        {this.props.locations.map((myLocation,index) => (
+          <ListItem myLocation={myLocation} key={index}/>
         ))}
       </div>
     );
