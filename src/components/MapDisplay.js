@@ -24,39 +24,34 @@ export class MapDisplay extends Component {
     }
   };
 
+
   render() {
     return (
       <Map
         google={this.props.google}
-        onClick={this.onMapClicked}
-        zoom={14}
         initialCenter={{
           lat: 33.056146,
           lng: -97.065747
         }}
+        onClick={this.onMapClicked}
       >
         {this.props.locations.map(marker => (
           <Marker
             position={{ lat: marker.lat, lng: marker.lng }}
             title={marker.name}
             key={marker.uniqueID}
-            // onClick={() => {console.log(marker.uniqueID)}}
             onClick={this.onMarkerClick}
-            name={"Test"}
-          >
-            <InfoWindow
-              marker={this.state.activeMarker}
-              visible={this.state.showingInfoWindow}
-            >
-              <div>
-                <h1>{this.state.selectedPlace.name}</h1>
-              </div>
-            </InfoWindow>
-          </Marker>
+            name={marker.name}
+          />
         ))}
 
-        <InfoWindow onClose={this.onInfoWindowClose}>
-          <div>{/* <h1>{this.state.selectedPlace.name}</h1> */}</div>
+        <InfoWindow
+          marker={this.state.activeMarker}
+          visible={this.state.showingInfoWindow}
+        >
+          <div>
+            <h1>{this.state.selectedPlace.name}</h1>
+          </div>
         </InfoWindow>
       </Map>
     );
