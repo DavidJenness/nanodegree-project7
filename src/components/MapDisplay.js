@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import { Information } from "./Information";
+import "./ResultList"
+import ResultList from "./ResultList";
 
 export class MapDisplay extends Component {
   state = {
@@ -31,6 +33,7 @@ export class MapDisplay extends Component {
         <div className="pageContainer">
         <div className="sidebar">
         This is the sidebar.
+        <ResultList/>
         </div>
         
         <div className="map" ref="map">
