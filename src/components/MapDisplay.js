@@ -8,7 +8,7 @@ export class MapDisplay extends Component {
   state = {
     showingInfoWindow: false,
     activeMarker: {},
-    selectedPlace: {}
+    selectedPlace: {}.locations
   };
 
   onMarkerClick = (props, marker, e) =>
@@ -60,7 +60,7 @@ export class MapDisplay extends Component {
                 visible={this.state.showingInfoWindow}
               >
                 <div>
-                  <Information selectedPlace={this.state.selectedPlace} />
+                  <Information selectedPlace={this.state.selectedPlace}/>
                 </div>
               </InfoWindow>
             </Map>
