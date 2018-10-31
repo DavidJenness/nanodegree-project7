@@ -31,9 +31,9 @@ export class MapDisplay extends Component {
     return (
       <div>
         <div className="pageContainer">
-        <div className="sidebar">
+        <div className="sidebar"  >
         This is the sidebar.
-        <ResultList/>
+        <ResultList locations={this.props.locations}/>
         </div>
         
         <div className="map" ref="map">
