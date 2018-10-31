@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import Map from './components/Map';
+import Map2 from './components/Map2';
 import {pointsOfInterest} from './data/sampleData'
+import MapDisplay from './components/MapDisplay'
+import {GoogleApiWrapper} from 'google-maps-react';
+
 
 
 class App extends Component {
@@ -23,8 +26,8 @@ constructor() {
         </header> */}
 
 
-<Map locations={pointsOfInterest}/>
-
+{/* <Map2 locations={pointsOfInterest}/> */}
+<MapDisplay google={this.props.google} locations={pointsOfInterest}/>
 
         
       </div>

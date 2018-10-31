@@ -10,7 +10,7 @@ import {
 
 const MyMapComponent = withScriptjs(
   withGoogleMap(props => (
-    <GoogleMap
+        <GoogleMap
       defaultZoom={14}
       defaultCenter={{ lat: 33.056146, lng: -97.065747 }}
     >
@@ -19,7 +19,7 @@ const MyMapComponent = withScriptjs(
           position={{ lat: marker.lat, lng: marker.lng }}
           title={marker.name}
           key={marker.uniqueID}
-          onClick={() => console.log(marker.uniqueID)}
+          onClick={() => {console.log(marker.uniqueID)}}
         >
           <InfoWindow key={marker.name} visible={false}>
             <div>{marker.name}</div>
@@ -30,7 +30,7 @@ const MyMapComponent = withScriptjs(
   ))
 );
 
-export default class Map extends Component {
+export default class Map2 extends Component {
   render() {
     let myURL =
       "https://maps.googleapis.com/maps/api/js?v=3.exp&key=" +
