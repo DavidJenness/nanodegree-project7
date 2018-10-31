@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import { Information } from "./Information";
-import "./ResultList"
+import "./ResultList";
 import ResultList from "./ResultList";
 
 export class MapDisplay extends Component {
@@ -31,41 +31,41 @@ export class MapDisplay extends Component {
     return (
       <div>
         <div className="pageContainer">
-        <div className="sidebar"  >
-        This is the sidebar.
-        <ResultList locations={this.props.locations}/>
-        </div>
-        
-        <div className="map" ref="map">
-          <Map
-            google={this.props.google}
-            initialCenter={{
-              lat: 33.056146,
-              lng: -97.065747
-            }}
-            onClick={this.onMapClicked}
-          >
-            {this.props.locations.map(marker => (
-              <Marker
-                position={{ lat: marker.lat, lng: marker.lng }}
-                title={marker.name}
-                key={marker.uniqueID}
-                onClick={this.onMarkerClick}
-                name={marker.name}
-              />
-            ))}
+          <div className="sidebar">
+            This is the sidebar.
+            <ResultList locations={this.props.locations} />
+          </div>
 
-            <InfoWindow
-              marker={this.state.activeMarker}
-              visible={this.state.showingInfoWindow}
+          <div className="map" ref="map">
+            <Map
+              google={this.props.google}
+              initialCenter={{
+                lat: 33.056146,
+                lng: -97.065747
+              }}
+              onClick={this.onMapClicked}
             >
-              <div>
-                <Information selectedPlace={this.state.selectedPlace}/>
-              </div>
-            </InfoWindow>
-          </Map>
+              {this.props.locations.map(marker => (
+                <Marker
+                  position={{ lat: marker.lat, lng: marker.lng }}
+                  title={marker.name}
+                  key={marker.uniqueID}
+                  onClick={this.onMarkerClick}
+                  name={marker.name}
+                />
+              ))}
+
+              <InfoWindow
+                marker={this.state.activeMarker}
+                visible={this.state.showingInfoWindow}
+              >
+                <div>
+                  <Information selectedPlace={this.state.selectedPlace} />
+                </div>
+              </InfoWindow>
+            </Map>
+          </div>
         </div>
-      </div>
       </div>
     );
   }
