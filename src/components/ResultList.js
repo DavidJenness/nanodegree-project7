@@ -6,8 +6,8 @@ export default class ResultList extends Component {
     render() {
         return <div>
 
-            {this.props.locations.map(marker => (
-                <ListItem/>
+            {this.props.locations.map(myLocation => (
+                <ListItem myLocation={myLocation}/>
             ))}
 
     
