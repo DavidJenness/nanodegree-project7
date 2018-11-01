@@ -2,13 +2,16 @@ import React, { Component } from "react";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import { Information } from "./Information";
 import "./ResultList";
-import ResultList from "./ResultList";
+// import ResultList from "./ResultList";
+import ListItem from "./ListItem";
 
 export class MapDisplay extends Component {
   state = {
     showingInfoWindow: false,
     activeMarker: {},
-    selectedPlace: {}.locations
+    selectedPlace: {}.locations,
+    filteredLocations: [],
+    searchText: ""
   };
 
   onMarkerClick = (props, marker, e) =>
@@ -27,13 +30,39 @@ export class MapDisplay extends Component {
     }
   };
 
+  handleChange = event => {
+    this.setState({ searchText: event.target.value},
+      this.filterLocations(event));
+    
+  };
+
+
+  filterLocations(event) {
+    var myFilter = this.props.locations;
+    myFilter = myFilter.filter(function(item){
+      return item.name.toLowerCase().search(
+        event.target.value) !== -1;
+    });
+    this.setState({filteredLocations: myFilter});
+
+  }
+
   render() {
     return (
       <div>
         <div className="pageContainer">
           <div className="sidebar">
             This is the sidebar.
-            <ResultList locations={this.props.locations} />
+            <form>
+          <input
+            type="text"
+            value={this.state.searchText}
+            onChange={this.handleChange}
+          />
+        </form>
+        {this.props.locations.map((myLocation,index) => (
+          <ListItem myLocation={myLocation} key={index}/>
+        ))}
           </div>
 
           <div className="map" ref="map">
