@@ -48,7 +48,7 @@ export class MapDisplay extends Component {
   handleButtonClick = function(event) {
     //alert("I was clicked");
     let strLoc = JSON.parse(event.target.value);
-    console.log(this.state.filteredLocations);
+    console.log(strLoc);
     this.setState({
       filteredLocations: this.state.filteredLocations.filter(item => {
         return item.uniqueID === strLoc.uniqueID;
@@ -70,7 +70,6 @@ export class MapDisplay extends Component {
               />
             </form>
             {this.state.filteredLocations.map((myLocation, index) => (
-              // <ListItem myLocation={myLocation} key={index} syncItemID={this.state.syncItemID}/>
               <div className="listItem" key={index}>
                 <button
                   className="list-item-header"
