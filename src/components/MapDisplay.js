@@ -49,8 +49,9 @@ export class MapDisplay extends Component {
   handleButtonClick = function(event) {
     //alert("I was clicked");
     let strLoc = JSON.parse(event.target.value);
-    console.log(strLoc)
-    //this.setState({ filteredLocations: strLoc });
+    console.log(this.state.filteredLocations)
+    // this.setState({ filteredLocations: strLoc });
+    
   };
 
   render() {
@@ -72,7 +73,7 @@ export class MapDisplay extends Component {
                 <button
                   className="list-item-header"
                   type="button"
-                  onClick={this.handleButtonClick}
+                  onClick={this.handleButtonClick.bind(this)}
                   value={JSON.stringify(myLocation)}
                 >
                   {myLocation.name}
