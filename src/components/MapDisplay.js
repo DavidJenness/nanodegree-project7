@@ -9,14 +9,16 @@ export class MapDisplay extends Component {
     activeMarker: {},
     selectedPlace: {}.locations,
     filteredLocations: this.props.locations,
-    searchText: ""
+    searchText: "",
+    syncItemID: {}
   };
 
   onMarkerClick = (props, marker, e) =>
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
-      showingInfoWindow: true
+      showingInfoWindow: true,
+      syncItemID: marker.uniqueID
     });
 
   onMapClicked = props => {
@@ -29,20 +31,22 @@ export class MapDisplay extends Component {
   };
 
   handleChange = event => {
-    this.setState({ searchText: event.target.value},
-      this.filterLocations(event));
-    
+    this.setState(
+      { searchText: event.target.value },
+      this.filterLocations(event)
+    );
   };
-
 
   filterLocations(event) {
     var myFilter = this.props.locations;
-    myFilter = myFilter.filter(function(item){
-      return item.name.toLowerCase().search(
-        event.target.value) !== -1;
+    myFilter = myFilter.filter(function(item) {
+      return item.name.toLowerCase().search(event.target.value) !== -1;
     });
-    this.setState({filteredLocations: myFilter});
+    this.setState({ filteredLocations: myFilter });
+  }
 
+  changeActiveMarkerFromList(uniqueID) {
+    //Look for the Active Marker
   }
 
   render() {
@@ -50,17 +54,17 @@ export class MapDisplay extends Component {
       <div>
         <div className="pageContainer">
           <div className="sidebar">
-            This is the sidebar.
+            Enter your Search
             <form>
-          <input
-            type="text"
-            value={this.state.searchText}
-            onChange={this.handleChange}
-          />
-        </form>
-        {this.state.filteredLocations.map((myLocation,index) => (
-          <ListItem myLocation={myLocation} key={index}/>
-        ))}
+              <input
+                type="text"
+                value={this.state.searchText}
+                onChange={this.handleChange}
+              />
+            </form>
+            {this.state.filteredLocations.map((myLocation, index) => (
+              <ListItem myLocation={myLocation} key={index} syncItemID={this.state.syncItemID}/>
+            ))}
           </div>
 
           <div className="map" ref="map">
@@ -89,7 +93,7 @@ export class MapDisplay extends Component {
                 visible={this.state.showingInfoWindow}
               >
                 <div>
-                  <Information selectedPlace={this.state.selectedPlace}/>
+                  <Information selectedPlace={this.state.selectedPlace} />
                 </div>
               </InfoWindow>
             </Map>
