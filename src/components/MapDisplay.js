@@ -10,7 +10,7 @@ export class MapDisplay extends Component {
     showingInfoWindow: false,
     activeMarker: {},
     selectedPlace: {}.locations,
-    filteredLocations: [],
+    filteredLocations: this.props.locations,
     searchText: ""
   };
 
@@ -60,7 +60,7 @@ export class MapDisplay extends Component {
             onChange={this.handleChange}
           />
         </form>
-        {this.props.locations.map((myLocation,index) => (
+        {this.state.filteredLocations.map((myLocation,index) => (
           <ListItem myLocation={myLocation} key={index}/>
         ))}
           </div>
@@ -74,7 +74,7 @@ export class MapDisplay extends Component {
               }}
               onClick={this.onMapClicked}
             >
-              {this.props.locations.map(marker => (
+              {this.state.filteredLocations.map(marker => (
                 <Marker
                   position={{ lat: marker.lat, lng: marker.lng }}
                   title={marker.name}
