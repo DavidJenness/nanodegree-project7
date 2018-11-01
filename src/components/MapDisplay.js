@@ -50,7 +50,9 @@ export class MapDisplay extends Component {
     //alert("I was clicked");
     let strLoc = JSON.parse(event.target.value);
     console.log(this.state.filteredLocations)
-    // this.setState({ filteredLocations: strLoc });
+    this.setState({ filteredLocations: this.state.filteredLocations.filter((item) => {
+    return item.uniqueID === strLoc.uniqueID
+    }) });
     
   };
 
