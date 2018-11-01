@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import { Information } from "./Information";
-import ListItem from "./ListItem";
+// import ListItem from "./ListItem";
 
 export class MapDisplay extends Component {
   state = {
@@ -45,9 +45,13 @@ export class MapDisplay extends Component {
     this.setState({ filteredLocations: myFilter });
   }
 
-  changeActiveMarkerFromList(uniqueID) {
-    //Look for the Active Marker
-  }
+
+  handleButtonClick = function(event) {
+    //alert("I was clicked");
+    let strLoc = JSON.parse(event.target.value);
+    console.log(strLoc)
+    //this.setState({ filteredLocations: strLoc });
+  };
 
   render() {
     return (
@@ -63,7 +67,25 @@ export class MapDisplay extends Component {
               />
             </form>
             {this.state.filteredLocations.map((myLocation, index) => (
-              <ListItem myLocation={myLocation} key={index} syncItemID={this.state.syncItemID}/>
+              // <ListItem myLocation={myLocation} key={index} syncItemID={this.state.syncItemID}/>
+              <div className="listItem" key={index}>
+                <button
+                  className="list-item-header"
+                  type="button"
+                  onClick={this.handleButtonClick}
+                  value={JSON.stringify(myLocation)}
+                >
+                  {myLocation.name}
+                </button>
+                <p>{myLocation.cuisine}</p>
+
+                {(() => {
+                  if (this.state.syncItemID === myLocation.uniqueID) {
+                    return <p>Selected Item</p>;
+                  }
+                })()}
+                <hr />
+              </div>
             ))}
           </div>
 
