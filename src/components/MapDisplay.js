@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import { Information } from "./Information";
+// import ListItem from "./ListItem";
 
 export class MapDisplay extends Component {
   state = {
@@ -31,9 +32,7 @@ export class MapDisplay extends Component {
 
   handleChange = event => {
     this.setState(
-      {
-        searchText: event.target.value
-      },
+      { searchText: event.target.value },
       this.filterLocations(event)
     );
   };
@@ -43,12 +42,11 @@ export class MapDisplay extends Component {
     myFilter = myFilter.filter(function(item) {
       return item.name.toLowerCase().search(event.target.value) !== -1;
     });
-    this.setState({
-      filteredLocations: myFilter
-    });
+    this.setState({ filteredLocations: myFilter });
   }
 
   handleButtonClick = function(event) {
+    //alert("I was clicked");
     let strLoc = JSON.parse(event.target.value);
     console.log(this.state.filteredLocations);
     this.setState({
@@ -63,15 +61,16 @@ export class MapDisplay extends Component {
       <div>
         <div className="pageContainer">
           <div className="sidebar">
-            Enter your Search{" "}
+            Enter your Search
             <form>
               <input
                 type="text"
                 value={this.state.searchText}
                 onChange={this.handleChange}
-              />{" "}
-            </form>{" "}
+              />
+            </form>
             {this.state.filteredLocations.map((myLocation, index) => (
+              // <ListItem myLocation={myLocation} key={index} syncItemID={this.state.syncItemID}/>
               <div className="listItem" key={index}>
                 <button
                   className="list-item-header"
@@ -79,18 +78,20 @@ export class MapDisplay extends Component {
                   onClick={this.handleButtonClick.bind(this)}
                   value={JSON.stringify(myLocation)}
                 >
-                  {myLocation.name}{" "}
-                </button>{" "}
-                <p> {myLocation.cuisine} </p>
+                  {myLocation.name}
+                </button>
+                <p>{myLocation.cuisine}</p>
+
                 {(() => {
                   if (this.state.syncItemID === myLocation.uniqueID) {
-                    return <p> Selected Item </p>;
+                    return <p>Selected Item</p>;
                   }
-                })()}{" "}
+                })()}
                 <hr />
               </div>
-            ))}{" "}
+            ))}
           </div>
+
           <div className="map" ref="map">
             <Map
               google={this.props.google}
@@ -102,10 +103,7 @@ export class MapDisplay extends Component {
             >
               {this.state.filteredLocations.map(marker => (
                 <Marker
-                  position={{
-                    lat: marker.lat,
-                    lng: marker.lng
-                  }}
+                  position={{ lat: marker.lat, lng: marker.lng }}
                   title={marker.name}
                   key={marker.uniqueID}
                   onClick={this.onMarkerClick}
@@ -114,17 +112,18 @@ export class MapDisplay extends Component {
                   uniqueID={marker.uniqueID}
                 />
               ))}
+
               <InfoWindow
                 marker={this.state.activeMarker}
                 visible={this.state.showingInfoWindow}
               >
                 <div>
-                  <Information selectedPlace={this.state.selectedPlace} />{" "}
-                </div>{" "}
-              </InfoWindow>{" "}
-            </Map>{" "}
-          </div>{" "}
-        </div>{" "}
+                  <Information selectedPlace={this.state.selectedPlace} />
+                </div>
+              </InfoWindow>
+            </Map>
+          </div>
+        </div>
       </div>
     );
   }
