@@ -7,7 +7,7 @@ export class MapDisplay extends Component {
   state = {
     showingInfoWindow: false,
     activeMarker: {},
-    selectedPlace: {}.locations,
+    selectedPlace: {},
     filteredLocations: this.props.locations,
     searchText: "",
     syncItemID: {}
