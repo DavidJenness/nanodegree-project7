@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import { Information } from "./Information";
-import "./ResultList";
-// import ResultList from "./ResultList";
 import ListItem from "./ListItem";
 
 export class MapDisplay extends Component {
