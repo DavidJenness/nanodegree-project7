@@ -20,7 +20,10 @@ map: null,
 
   onMarkerClick = (props, marker, e) => {
     this.closeInfoWindow();
+    //marker.animation = this.props.google.maps.Animation.DROP
+    //console.log("marker: " + String(marker))
     this.setState({showingInfoWindow: true, activeMarker: marker, activeMarkerProps: props})
+   
   }
 
   handleChange = event => {
@@ -43,21 +46,10 @@ map: null,
  makeListItemActive = (index) => {
    console.log("markerProps: " + this.state.markerProps[index] )
    this.setState({selectedIndex: index, open: !this.state.open})
+   //this.props.google.maps.Animation.DROP
    this.onMarkerClick(this.state.markerProps[index],this.state.markers[index])
  }
 
-  // handleButtonClick = function(event) {
-  //   alert("I was clicked");
-  //   let strLoc = JSON.parse(event.target.value);
-  //   console.log(strLoc);
-  //   this.setState({
-  //     filteredLocations: this.state.filteredLocations.filter(item => {
-  //       return item.uniqueID === strLoc.uniqueID;
-  //     })
-  //   });
-  // };
-
-  //From Tutorial
 
   mapReady = (props, map) => {
     console.log("Map Ready");
@@ -98,6 +90,7 @@ console.log("updating markers :" + filteredLocations);
     markerProps.push(mProps);
 
     let animation = this.props.google.maps.Animation.DROP;
+
     let marker = new this.props.google.maps.Marker({
       position: {"lat": parseFloat(location.lat), "lng": parseFloat(location.lng)},
       map: this.state.map,
@@ -107,7 +100,7 @@ console.log("updating markers :" + filteredLocations);
     marker.addListener('click', () => {
       this.onMarkerClick(mProps, marker, null);
     });
-
+    
     return marker;
 
   })
