@@ -27,3 +27,5 @@ REACT_APP_FOURSQUARE_CLIENTSECRET= YOUR_KEY_GOES_HERE
 
 This project used the FourSquare Developer API to get the number of likes a restaurant has. You can learn about the FourSquare Developer tools here:
 [FourSquare Developers Portal](https://developer.foursquare.com/)
+
+I used the video by Project Coach Doug Brown to learn how to get my markers into an array. You can see that video here [FEND P7 Walkthrough with Doug Brown](https://www.youtube.com/watch?v=NVAVLCJwAAo&feature=youtu.be)
