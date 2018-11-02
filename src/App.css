@@ -41,7 +41,7 @@
 }
 
 .listItem {
-padding: 5px;
+  padding: 5px;
 }
 
 .list-item-header {
@@ -51,12 +51,38 @@ padding: 5px;
 .listCuisine {
   padding: 0px;
   margin: 0px;
-} 
+}
+
+@media all and (max-width: 550px) {
+
+  .sidebar {
+    margin: 0;
+    width: 25%;
+    height: 100vh;
+    background: tan;
+  }
+
+  .map {
+    margin: 0;
+    width: 75%;
+    height: 100vh;
+  }
+
+  .list-item-header {
+    font-size: 10px;
+  }
+
+  .listCuisine {
+    font-size: 10px;
+  }
+}
+
 
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

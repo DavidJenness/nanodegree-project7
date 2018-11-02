@@ -1,6 +1,4 @@
-export const pointsOfInterest = [
-
-    {
+export const pointsOfInterest = [{
         uniqueID: 1,
         name: "Starwood Cafe",
         lat: 33.065145,
@@ -9,8 +7,6 @@ export const pointsOfInterest = [
         clicked: false,
         foursquareid: "53518f9a498e5169f312eb2c"
     },
-
-
     {
         uniqueID: 2,
         name: "Seven Mile Cafe",
@@ -18,10 +14,8 @@ export const pointsOfInterest = [
         lng: -97.059849,
         cuisine: "Breakfast",
         clicked: false,
-        foursquareid:"525add9c11d2512cf46504b7"
+        foursquareid: "525add9c11d2512cf46504b7"
     },
-
-
     {
         uniqueID: 3,
         name: "Mi Dia from Scratch",
@@ -29,10 +23,8 @@ export const pointsOfInterest = [
         lng: -97.070295,
         cuisine: "Mexican",
         clicked: false,
-        foursquareid:"594c00e6d3cce80b02635290"
+        foursquareid: "594c00e6d3cce80b02635290"
     },
-
-
     {
         uniqueID: 4,
         name: "Fresco's Mexicana",
@@ -40,10 +32,8 @@ export const pointsOfInterest = [
         lng: -97.063936,
         cuisine: "Mexican",
         clicked: false,
-        foursquareid:"524dca72498e46fc1d522556"
+        foursquareid: "524dca72498e46fc1d522556"
     },
-
-
     {
         uniqueID: 5,
         name: "What's On Tap",
@@ -51,10 +41,8 @@ export const pointsOfInterest = [
         lng: -97.068947,
         cuisine: "Bar",
         clicked: false,
-        foursquareid:"54dfc885498ef42240781ac9"
+        foursquareid: "54dfc885498ef42240781ac9"
     },
-
-
     {
         uniqueID: 6,
         name: "Local Pint",
@@ -62,6 +50,6 @@ export const pointsOfInterest = [
         lng: -97.072304,
         cuisine: "Bar",
         clicked: false,
-        foursquareid:"59a1ab3f7564f71649073452"
+        foursquareid: "59a1ab3f7564f71649073452"
     }
 ]

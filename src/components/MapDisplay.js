@@ -79,7 +79,6 @@ export class MapDisplay extends Component {
       .state
       .markers
       .forEach(marker => marker.setMap(null));
-
     let markerProps = [];
     let markers = filteredLocations.map((location, index) => {
       let mProps = {
@@ -90,26 +89,20 @@ export class MapDisplay extends Component {
         position: { "lat": parseFloat(location.lat), "lng": parseFloat(location.lng) }
       };
       markerProps.push(mProps);
-
       let animation = null;
       let marker = new this.props.google.maps.Marker({
         position: { "lat": parseFloat(location.lat), "lng": parseFloat(location.lng) },
         map: this.state.map,
         animation
       });
-
       marker.addListener('click', () => {
         this.onMarkerClick(mProps, marker, null);
       });
-
       return marker;
-
     })
     this.setState({ markers, markerProps })
   }
-
   render() {
-
     let myProps = this.state.activeMarkerProps;
     return (
       <div>
@@ -124,10 +117,10 @@ export class MapDisplay extends Component {
                 onChange={this.handleChange}
               />
             </form>
-            <p/>
+            <p />
             {this.state.filteredLocations.map((myLocation, index) => (
               <div className="listItem" key={index}>
-                <button 
+                <button
                   className="list-item-header"
                   type="button" //ARIA Support
                   aria-label="Location Button" //ARIA Support
@@ -142,7 +135,6 @@ export class MapDisplay extends Component {
               </div>
             ))}
           </div>
-
           <div className="map" ref="map">
             <Map
               role="application" //ARIA Support
