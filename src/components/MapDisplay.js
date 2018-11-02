@@ -18,28 +18,10 @@ map: null,
     activeMarkerProps: null
   };
 
-  // onMarkerClick = (props, marker, e) =>
-  //   this.setState({
-  //     selectedPlace: props,
-  //     activeMarker: marker,
-  //     showingInfoWindow: true,
-  //     syncItemID: marker.uniqueID
-  //   });
-
   onMarkerClick = (props, marker, e) => {
     this.closeInfoWindow();
     this.setState({showingInfoWindow: true, activeMarker: marker, activeMarkerProps: props})
   }
-
-
-  // onMapClicked = props => {
-  //   if (this.state.showingInfoWindow) {
-  //     this.setState({
-  //       showingInfoWindow: false,
-  //       activeMarker: null
-  //     });
-  //   }
-  // };
 
   handleChange = event => {
     this.setState(
@@ -54,6 +36,7 @@ map: null,
       return item.name.toLowerCase().search(event.target.value) !== -1;
     });
     this.setState({ filteredLocations: myFilter });
+    this.updateMarkers(myFilter)
   }
 
   handleButtonClick = function(event) {
@@ -74,7 +57,7 @@ map: null,
     this.setState({
       map
     });
-    this.updateMarkers(this.props.locations)
+    this.updateMarkers(this.state.filteredLocations)
   }
 
 closeInfoWindow = () => {
@@ -89,16 +72,16 @@ closeInfoWindow = () => {
   })
 }
 
-updateMarkers = (locations) => {
-  if (!locations) return;
-console.log("updating markers");
+updateMarkers = (filteredLocations) => {
+  if (!filteredLocations) return;
+console.log("updating markers :" + filteredLocations);
   this
     .state
     .markers
     .forEach(marker => marker.setMap(null));
 
   let markerProps = [];
-  let markers = locations.map((location, index) => {
+  let markers = filteredLocations.map((location, index) => {
     let mProps = {
       key: index,
       index,
@@ -172,17 +155,6 @@ console.log("updating markers");
               }}
               onClick={this.closeInfoWindow}
             >
-              {/* {this.state.filteredLocations.map(marker => (
-                <Marker
-                  position={{ lat: marker.lat, lng: marker.lng }}
-                  title={marker.name}
-                  key={marker.uniqueID}
-                  onClick={this.onMarkerClick}
-                  name={marker.name}
-                  cuisine={marker.cuisine}
-                  uniqueID={marker.uniqueID}
-                />
-              ))} */}
 
               <InfoWindow
                 marker={this.state.activeMarker}
