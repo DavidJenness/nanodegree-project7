@@ -11,6 +11,7 @@ export class MapDisplay extends Component {
     filteredLocations: this.props.locations,
     searchText: "",
     syncItemID: {},
+    likeSummary: null,
     //From Tutorial
     map: null,
     markers: [],
@@ -37,7 +38,10 @@ export class MapDisplay extends Component {
     fetch(request)
       .then(response => response.json())
       .then(result => {
-        console.log(result);
+        console.log(result.response.likes.summary);
+        this.setState({
+          likeSummary: result.response.likes.summary
+        })
       })
 
 
@@ -185,6 +189,7 @@ export class MapDisplay extends Component {
               >
                 <div>
                   <h3>{myProps && myProps.name}</h3>
+                  <p>{this.state.likeSummary} on FourSquare</p>
                   {/* <Information selectedPlace={myProps} /> */}
                 </div>
               </InfoWindow>
