@@ -39,16 +39,23 @@ map: null,
     this.updateMarkers(myFilter)
   }
 
-  handleButtonClick = function(event) {
-    alert("I was clicked");
-    let strLoc = JSON.parse(event.target.value);
-    console.log(strLoc);
-    this.setState({
-      filteredLocations: this.state.filteredLocations.filter(item => {
-        return item.uniqueID === strLoc.uniqueID;
-      })
-    });
-  };
+
+ makeListItemActive = (index) => {
+   console.log("markerProps: " + this.state.markerProps[index] )
+   this.setState({selectedIndex: index, open: !this.state.open})
+   this.onMarkerClick(this.state.markerProps[index],this.state.markers[index])
+ }
+
+  // handleButtonClick = function(event) {
+  //   alert("I was clicked");
+  //   let strLoc = JSON.parse(event.target.value);
+  //   console.log(strLoc);
+  //   this.setState({
+  //     filteredLocations: this.state.filteredLocations.filter(item => {
+  //       return item.uniqueID === strLoc.uniqueID;
+  //     })
+  //   });
+  // };
 
   //From Tutorial
 
@@ -128,7 +135,8 @@ console.log("updating markers :" + filteredLocations);
                 <button
                   className="list-item-header"
                   type="button"
-                  onClick={this.handleButtonClick.bind(this)}
+                  // onClick={this.handleButtonClick.bind(this)}
+                  onClick={e => this.makeListItemActive(index)}
                   value={JSON.stringify(myLocation)}
                 >
                   {myLocation.name}
