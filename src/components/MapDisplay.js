@@ -124,6 +124,7 @@ export class MapDisplay extends Component {
                 onChange={this.handleChange}
               />
             </form>
+            <p/>
             {this.state.filteredLocations.map((myLocation, index) => (
               <div className="listItem" key={index}>
                 <button 
@@ -136,7 +137,7 @@ export class MapDisplay extends Component {
                 >
                   {myLocation.name}
                 </button>
-                <p>{myLocation.cuisine}</p>
+                <div className="listCuisine">{myLocation.cuisine}</div>
                 <hr />
               </div>
             ))}
