@@ -10,9 +10,8 @@ export class MapDisplay extends Component {
     selectedPlace: {},
     filteredLocations: this.props.locations,
     searchText: "",
-    syncItemID: {},
+    // syncItemID: {},
     likeSummary: null,
-    //From Tutorial
     map: null,
     markers: [],
     markerProps: [],
@@ -159,11 +158,11 @@ export class MapDisplay extends Component {
                 </button>
                 <p>{myLocation.cuisine}</p>
 
-                {(() => {
+                {/* {(() => {
                   if (this.state.syncItemID === myLocation.uniqueID) {
                     return <p>Selected Item</p>;
                   }
-                })()}
+                })()} */}
                 <hr />
               </div>
             ))}
