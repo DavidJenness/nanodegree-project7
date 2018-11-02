@@ -16,6 +16,7 @@ export class MapDisplay extends Component {
     activeMarkerProps: null
   };
 
+  //This is called when a marker is clicked on screen
   onMarkerClick = (props, marker, e) => {
     this.closeInfoWindow();
     this.setState({ showingInfoWindow: true, activeMarker: marker, activeMarkerProps: props })
@@ -31,8 +32,10 @@ export class MapDisplay extends Component {
         })
         this.state.activeMarker.setAnimation(this.props.google.maps.Animation.BOUNCE)
       })
+      .catch(error => alert("There was a problem accessing FourSquare's API. Please try again later"))
   }
 
+  //This is called each time a character is typed in the search bar
   handleChange = event => {
     this.setState(
       { searchText: event.target.value },
@@ -40,6 +43,7 @@ export class MapDisplay extends Component {
     );
   };
 
+  //This filters all of the locations down to ones that match the pattern typed in the search box
   filterLocations(event) {
     var myFilter = this.props.locations;
     myFilter = myFilter.filter(function (item) {
@@ -49,11 +53,13 @@ export class MapDisplay extends Component {
     this.updateMarkers(myFilter)
   }
 
+  //Handles the click of the item in the sidebar
   makeListItemActive = (index) => {
     this.setState({ selectedIndex: index, open: !this.state.open })
     this.onMarkerClick(this.state.markerProps[index], this.state.markers[index])
   }
 
+  //Loads when the map is ready to display
   mapReady = (props, map) => {
     this.setState({
       map
@@ -61,6 +67,7 @@ export class MapDisplay extends Component {
     this.updateMarkers(this.state.filteredLocations)
   }
 
+  //Closes the InfoWindow above the markers
   closeInfoWindow = () => {
     this.state.activeMarker && this
       .state
@@ -73,12 +80,10 @@ export class MapDisplay extends Component {
     })
   }
 
+  //Loads your markers into an array and the descriptions of the markers into an array
   updateMarkers = (filteredLocations) => {
     if (!filteredLocations) return;
-    this
-      .state
-      .markers
-      .forEach(marker => marker.setMap(null));
+    this.state.markers.forEach(marker => marker.setMap(null));
     let markerProps = [];
     let markers = filteredLocations.map((location, index) => {
       let mProps = {
@@ -107,7 +112,8 @@ export class MapDisplay extends Component {
     return (
       <div>
         <div className="pageContainer">
-          <div className="sidebar">
+        {/* Added Semantic Element */}
+          <aside className="sidebar">   
             Enter your Search
             <form>
               <input
@@ -118,12 +124,12 @@ export class MapDisplay extends Component {
               />
             </form>
             <p />
+            {/* Look at each of the filtered items and show them in the sidebar */}
             {this.state.filteredLocations.map((myLocation, index) => (
               <div className="listItem" key={index}>
                 <button
                   className="list-item-header"
                   type="button" //ARIA Support
-                  aria-label="Location Button" //ARIA Support
                   tabIndex="0"
                   onClick={e => this.makeListItemActive(index)}
                   value={JSON.stringify(myLocation)}
@@ -134,8 +140,9 @@ export class MapDisplay extends Component {
                 <hr />
               </div>
             ))}
-          </div>
-          <div className="map" ref="map">
+          </aside>
+          {/* Added Semantic Element */}
+          <section className="map" ref="map">
             <Map
               role="application" //ARIA Support
               aria-label="map" //ARIA Support
@@ -158,13 +165,14 @@ export class MapDisplay extends Component {
                 </div>
               </InfoWindow>
             </Map>
-          </div>
+          </section>
         </div>
       </div>
     );
   }
 }
 
+// This loads the Google Maps functionality
 export default GoogleApiWrapper({
   apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
   LoadingContainer: LoadingScreen

@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 
+//This is what will show as the Map is loading.
 class LoadingScreen extends Component {
     render = () => {
         return (
             <div>
-                <p>Loading the Map. If you do not see the map after a few moments, </p>
-                <p>it means the the Google Maps API is experiencing an issue.</p>
-                <p>You should wait a few minutes and try again.</p>
+                <p>Loading the Map. Please be patient if you are on a slower connection.</p>
             </div>
         )
     }
