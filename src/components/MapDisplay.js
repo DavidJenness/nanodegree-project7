@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Map, InfoWindow, GoogleApiWrapper } from "google-maps-react";
-// import { Information } from "./Information";
 require('dotenv').config();
 
 export class MapDisplay extends Component {
@@ -18,7 +17,6 @@ export class MapDisplay extends Component {
 
   onMarkerClick = (props, marker, e) => {
     this.closeInfoWindow();
-    //marker.animation = this.props.google.maps.Animation.DROP
     this.setState({ showingInfoWindow: true, activeMarker: marker, activeMarkerProps: props })
     //Foursquare API 
     let url = 'https://api.foursquare.com/v2/venues/' + props.foursquareid + '/likes?client_id=' + process.env.REACT_APP_FOURSQUARE_CLIENTID + '&client_secret=' + process.env.REACT_APP_FOURSQUARE_CLIENTSECRET + '&v=20180323';
@@ -50,13 +48,10 @@ export class MapDisplay extends Component {
     this.updateMarkers(myFilter)
   }
 
-
   makeListItemActive = (index) => {
     this.setState({ selectedIndex: index, open: !this.state.open })
-    //this.props.google.maps.Animation.DROP
     this.onMarkerClick(this.state.markerProps[index], this.state.markers[index])
   }
-
 
   mapReady = (props, map) => {
     this.setState({
@@ -95,7 +90,6 @@ export class MapDisplay extends Component {
       };
       markerProps.push(mProps);
 
-      //let animation = this.props.google.maps.Animation.DROP;
       let animation = null;
       let marker = new this.props.google.maps.Marker({
         position: { "lat": parseFloat(location.lat), "lng": parseFloat(location.lng) },
@@ -156,7 +150,6 @@ export class MapDisplay extends Component {
               }}
               onClick={this.closeInfoWindow}
             >
-
               <InfoWindow
                 marker={this.state.activeMarker}
                 visible={this.state.showingInfoWindow}
