@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
-import { Information } from "./Information";
-// import ListItem from "./ListItem";
+// import { Information } from "./Information";
+require('dotenv').config();
 
 export class MapDisplay extends Component {
   state = {
@@ -11,8 +11,8 @@ export class MapDisplay extends Component {
     filteredLocations: this.props.locations,
     searchText: "",
     syncItemID: {},
-//From Tutorial
-map: null,
+    //From Tutorial
+    map: null,
     markers: [],
     markerProps: [],
     activeMarkerProps: null
@@ -22,8 +22,26 @@ map: null,
     this.closeInfoWindow();
     //marker.animation = this.props.google.maps.Animation.DROP
     //console.log("marker: " + String(marker))
-    this.setState({showingInfoWindow: true, activeMarker: marker, activeMarkerProps: props})
-   
+    this.setState({ showingInfoWindow: true, activeMarker: marker, activeMarkerProps: props })
+
+    console.log(props)
+    //Foursquare API 
+    //let url = 'https://api.foursquare.com/v2/venues/explore?client_id=' + process.env.REACT_APP_FOURSQUARE_CLIENTID + '&client_secret=' + process.env.REACT_APP_FOURSQUARE_CLIENTSECRET + '&v=20180323&limit=1&ll=40.7243,-74.0018&query=coffee';
+    let url = 'https://api.foursquare.com/v2/venues/' + props.foursquareid + '/likes?client_id=' + process.env.REACT_APP_FOURSQUARE_CLIENTID + '&client_secret=' + process.env.REACT_APP_FOURSQUARE_CLIENTSECRET + '&v=20180323';
+
+
+
+    let headers = new Headers();
+    let request = new Request(url, { method: 'GET', headers });
+
+    fetch(request)
+      .then(response => response.json())
+      .then(result => {
+        console.log(result);
+      })
+
+
+
   }
 
   handleChange = event => {
@@ -35,7 +53,7 @@ map: null,
 
   filterLocations(event) {
     var myFilter = this.props.locations;
-    myFilter = myFilter.filter(function(item) {
+    myFilter = myFilter.filter(function (item) {
       return item.name.toLowerCase().search(event.target.value) !== -1;
     });
     this.setState({ filteredLocations: myFilter });
@@ -43,12 +61,12 @@ map: null,
   }
 
 
- makeListItemActive = (index) => {
-   console.log("markerProps: " + this.state.markerProps[index] )
-   this.setState({selectedIndex: index, open: !this.state.open})
-   //this.props.google.maps.Animation.DROP
-   this.onMarkerClick(this.state.markerProps[index],this.state.markers[index])
- }
+  makeListItemActive = (index) => {
+    console.log("markerProps: " + this.state.markerProps[index])
+    this.setState({ selectedIndex: index, open: !this.state.open })
+    //this.props.google.maps.Animation.DROP
+    this.onMarkerClick(this.state.markerProps[index], this.state.markers[index])
+  }
 
 
   mapReady = (props, map) => {
@@ -59,53 +77,54 @@ map: null,
     this.updateMarkers(this.state.filteredLocations)
   }
 
-closeInfoWindow = () => {
-  this.state.activeMarker && this
-    .state
-    .activeMarker
-    .setAnimation(null);
-  this.setState({
-    showingInfoWindow: false,
-    activeMarker: null,
-    activeMarkerProps: null
-  })
-}
+  closeInfoWindow = () => {
+    this.state.activeMarker && this
+      .state
+      .activeMarker
+      .setAnimation(null);
+    this.setState({
+      showingInfoWindow: false,
+      activeMarker: null,
+      activeMarkerProps: null
+    })
+  }
 
-updateMarkers = (filteredLocations) => {
-  if (!filteredLocations) return;
-console.log("updating markers :" + filteredLocations);
-  this
-    .state
-    .markers
-    .forEach(marker => marker.setMap(null));
+  updateMarkers = (filteredLocations) => {
+    if (!filteredLocations) return;
+    console.log("updating markers :" + filteredLocations);
+    this
+      .state
+      .markers
+      .forEach(marker => marker.setMap(null));
 
-  let markerProps = [];
-  let markers = filteredLocations.map((location, index) => {
-    let mProps = {
-      key: index,
-      index,
-      name: location.name,
-      position: {"lat": parseFloat(location.lat), "lng": parseFloat(location.lng)}
-    };
-    markerProps.push(mProps);
+    let markerProps = [];
+    let markers = filteredLocations.map((location, index) => {
+      let mProps = {
+        key: index,
+        index,
+        name: location.name,
+        foursquareid: location.foursquareid,
+        position: { "lat": parseFloat(location.lat), "lng": parseFloat(location.lng) }
+      };
+      markerProps.push(mProps);
 
-    let animation = this.props.google.maps.Animation.DROP;
+      let animation = this.props.google.maps.Animation.DROP;
 
-    let marker = new this.props.google.maps.Marker({
-      position: {"lat": parseFloat(location.lat), "lng": parseFloat(location.lng)},
-      map: this.state.map,
-      animation
-    });
+      let marker = new this.props.google.maps.Marker({
+        position: { "lat": parseFloat(location.lat), "lng": parseFloat(location.lng) },
+        map: this.state.map,
+        animation
+      });
 
-    marker.addListener('click', () => {
-      this.onMarkerClick(mProps, marker, null);
-    });
-    
-    return marker;
+      marker.addListener('click', () => {
+        this.onMarkerClick(mProps, marker, null);
+      });
 
-  })
-  this.setState({markers, markerProps})
-}
+      return marker;
+
+    })
+    this.setState({ markers, markerProps })
+  }
 
   render() {
 
@@ -148,6 +167,8 @@ console.log("updating markers :" + filteredLocations);
 
           <div className="map" ref="map">
             <Map
+              role="application"
+              aria-label="map"
               google={this.props.google}
               onReady={this.mapReady}
               initialCenter={{
@@ -178,3 +199,4 @@ console.log("updating markers :" + filteredLocations);
 export default GoogleApiWrapper({
   apiKey: process.env.REACT_APP_GOOGLE_API_KEY
 })(MapDisplay);
+
