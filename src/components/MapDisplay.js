@@ -65,6 +65,9 @@ export class MapDisplay extends Component {
       map
     });
     this.updateMarkers(this.state.filteredLocations)
+
+    //You can uncomment this next line if you want to test an unhandled promise request
+    // Promise.reject('Dave Test of Reject')
   }
 
   //Closes the InfoWindow above the markers
@@ -112,8 +115,8 @@ export class MapDisplay extends Component {
     return (
       <div>
         <div className="pageContainer">
-        {/* Added Semantic Element */}
-          <aside className="sidebar">   
+          {/* Added Semantic Element */}
+          <aside className="sidebar">
             Enter your Search
             <form>
               <input
