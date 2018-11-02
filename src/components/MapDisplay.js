@@ -7,10 +7,8 @@ export class MapDisplay extends Component {
   state = {
     showingInfoWindow: false,
     activeMarker: null,
-    selectedPlace: {},
     filteredLocations: this.props.locations,
     searchText: "",
-    // syncItemID: {},
     likeSummary: null,
     map: null,
     markers: [],
@@ -24,23 +22,15 @@ export class MapDisplay extends Component {
     this.setState({ showingInfoWindow: true, activeMarker: marker, activeMarkerProps: props })
     //Foursquare API 
     let url = 'https://api.foursquare.com/v2/venues/' + props.foursquareid + '/likes?client_id=' + process.env.REACT_APP_FOURSQUARE_CLIENTID + '&client_secret=' + process.env.REACT_APP_FOURSQUARE_CLIENTSECRET + '&v=20180323';
-
-
-
     let headers = new Headers();
     let request = new Request(url, { method: 'GET', headers });
-
     fetch(request)
       .then(response => response.json())
       .then(result => {
-     
         this.setState({
           likeSummary: result.response.likes.summary
         })
       })
-
-
-
   }
 
   handleChange = event => {
@@ -142,19 +132,12 @@ export class MapDisplay extends Component {
                 <button
                   className="list-item-header"
                   type="button"
-                  // onClick={this.handleButtonClick.bind(this)}
                   onClick={e => this.makeListItemActive(index)}
                   value={JSON.stringify(myLocation)}
                 >
                   {myLocation.name}
                 </button>
                 <p>{myLocation.cuisine}</p>
-
-                {/* {(() => {
-                  if (this.state.syncItemID === myLocation.uniqueID) {
-                    return <p>Selected Item</p>;
-                  }
-                })()} */}
                 <hr />
               </div>
             ))}
@@ -181,7 +164,6 @@ export class MapDisplay extends Component {
                 <div>
                   <h3>{myProps && myProps.name}</h3>
                   <p>{this.state.likeSummary} on FourSquare</p>
-                  {/* <Information selectedPlace={myProps} /> */}
                 </div>
               </InfoWindow>
             </Map>
