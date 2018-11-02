@@ -30,6 +30,7 @@ export class MapDisplay extends Component {
         this.setState({
           likeSummary: result.response.likes.summary
         })
+        this.state.activeMarker.setAnimation(this.props.google.maps.Animation.BOUNCE)
       })
   }
 
@@ -94,8 +95,8 @@ export class MapDisplay extends Component {
       };
       markerProps.push(mProps);
 
-      let animation = this.props.google.maps.Animation.DROP;
-
+      //let animation = this.props.google.maps.Animation.DROP;
+      let animation = null;
       let marker = new this.props.google.maps.Marker({
         position: { "lat": parseFloat(location.lat), "lng": parseFloat(location.lng) },
         map: this.state.map,
