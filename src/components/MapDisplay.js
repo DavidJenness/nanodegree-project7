@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
+import { Map, InfoWindow, GoogleApiWrapper } from "google-maps-react";
 // import { Information } from "./Information";
 require('dotenv').config();
 
@@ -21,12 +21,8 @@ export class MapDisplay extends Component {
   onMarkerClick = (props, marker, e) => {
     this.closeInfoWindow();
     //marker.animation = this.props.google.maps.Animation.DROP
-    //console.log("marker: " + String(marker))
     this.setState({ showingInfoWindow: true, activeMarker: marker, activeMarkerProps: props })
-
-    console.log(props)
     //Foursquare API 
-    //let url = 'https://api.foursquare.com/v2/venues/explore?client_id=' + process.env.REACT_APP_FOURSQUARE_CLIENTID + '&client_secret=' + process.env.REACT_APP_FOURSQUARE_CLIENTSECRET + '&v=20180323&limit=1&ll=40.7243,-74.0018&query=coffee';
     let url = 'https://api.foursquare.com/v2/venues/' + props.foursquareid + '/likes?client_id=' + process.env.REACT_APP_FOURSQUARE_CLIENTID + '&client_secret=' + process.env.REACT_APP_FOURSQUARE_CLIENTSECRET + '&v=20180323';
 
 
@@ -37,7 +33,7 @@ export class MapDisplay extends Component {
     fetch(request)
       .then(response => response.json())
       .then(result => {
-        console.log(result.response.likes.summary);
+     
         this.setState({
           likeSummary: result.response.likes.summary
         })
@@ -65,7 +61,6 @@ export class MapDisplay extends Component {
 
 
   makeListItemActive = (index) => {
-    console.log("markerProps: " + this.state.markerProps[index])
     this.setState({ selectedIndex: index, open: !this.state.open })
     //this.props.google.maps.Animation.DROP
     this.onMarkerClick(this.state.markerProps[index], this.state.markers[index])
@@ -73,7 +68,6 @@ export class MapDisplay extends Component {
 
 
   mapReady = (props, map) => {
-    console.log("Map Ready");
     this.setState({
       map
     });
@@ -94,7 +88,6 @@ export class MapDisplay extends Component {
 
   updateMarkers = (filteredLocations) => {
     if (!filteredLocations) return;
-    console.log("updating markers :" + filteredLocations);
     this
       .state
       .markers
@@ -132,7 +125,6 @@ export class MapDisplay extends Component {
   render() {
 
     let myProps = this.state.activeMarkerProps;
-    console.log("myProps = " + myProps)
     return (
       <div>
         <div className="pageContainer">
