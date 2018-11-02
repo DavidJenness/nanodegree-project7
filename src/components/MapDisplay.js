@@ -118,16 +118,19 @@ export class MapDisplay extends Component {
             Enter your Search
             <form>
               <input
-                type="text"
+                type="text" //ARIA Support
+                aria-label="Search Textbox" //ARIA Support
                 value={this.state.searchText}
                 onChange={this.handleChange}
               />
             </form>
             {this.state.filteredLocations.map((myLocation, index) => (
               <div className="listItem" key={index}>
-                <button
+                <button 
                   className="list-item-header"
-                  type="button"
+                  type="button" //ARIA Support
+                  aria-label="Location Button" //ARIA Support
+                  tabIndex="0"
                   onClick={e => this.makeListItemActive(index)}
                   value={JSON.stringify(myLocation)}
                 >
@@ -141,8 +144,8 @@ export class MapDisplay extends Component {
 
           <div className="map" ref="map">
             <Map
-              role="application"
-              aria-label="map"
+              role="application" //ARIA Support
+              aria-label="map" //ARIA Support
               google={this.props.google}
               onReady={this.mapReady}
               initialCenter={{
