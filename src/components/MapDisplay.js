@@ -6,29 +6,40 @@ import { Information } from "./Information";
 export class MapDisplay extends Component {
   state = {
     showingInfoWindow: false,
-    activeMarker: {},
+    activeMarker: null,
     selectedPlace: {},
     filteredLocations: this.props.locations,
     searchText: "",
-    syncItemID: {}
+    syncItemID: {},
+//From Tutorial
+map: null,
+    markers: [],
+    markerProps: [],
+    activeMarkerProps: null
   };
 
-  onMarkerClick = (props, marker, e) =>
-    this.setState({
-      selectedPlace: props,
-      activeMarker: marker,
-      showingInfoWindow: true,
-      syncItemID: marker.uniqueID
-    });
+  // onMarkerClick = (props, marker, e) =>
+  //   this.setState({
+  //     selectedPlace: props,
+  //     activeMarker: marker,
+  //     showingInfoWindow: true,
+  //     syncItemID: marker.uniqueID
+  //   });
 
-  onMapClicked = props => {
-    if (this.state.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null
-      });
-    }
-  };
+  onMarkerClick = (props, marker, e) => {
+    this.closeInfoWindow();
+    this.setState({showingInfoWindow: true, activeMarker: marker, activeMarkerProps: props})
+  }
+
+
+  // onMapClicked = props => {
+  //   if (this.state.showingInfoWindow) {
+  //     this.setState({
+  //       showingInfoWindow: false,
+  //       activeMarker: null
+  //     });
+  //   }
+  // };
 
   handleChange = event => {
     this.setState(
@@ -46,7 +57,7 @@ export class MapDisplay extends Component {
   }
 
   handleButtonClick = function(event) {
-    //alert("I was clicked");
+    alert("I was clicked");
     let strLoc = JSON.parse(event.target.value);
     console.log(strLoc);
     this.setState({
@@ -56,7 +67,67 @@ export class MapDisplay extends Component {
     });
   };
 
+  //From Tutorial
+
+  mapReady = (props, map) => {
+    console.log("Map Ready");
+    this.setState({
+      map
+    });
+    this.updateMarkers(this.props.locations)
+  }
+
+closeInfoWindow = () => {
+  this.state.activeMarker && this
+    .state
+    .activeMarker
+    .setAnimation(null);
+  this.setState({
+    showingInfoWindow: false,
+    activeMarker: null,
+    activeMarkerProps: null
+  })
+}
+
+updateMarkers = (locations) => {
+  if (!locations) return;
+console.log("updating markers");
+  this
+    .state
+    .markers
+    .forEach(marker => marker.setMap(null));
+
+  let markerProps = [];
+  let markers = locations.map((location, index) => {
+    let mProps = {
+      key: index,
+      index,
+      name: location.name,
+      position: {"lat": parseFloat(location.lat), "lng": parseFloat(location.lng)}
+    };
+    markerProps.push(mProps);
+
+    let animation = this.props.google.maps.Animation.DROP;
+    let marker = new this.props.google.maps.Marker({
+      position: {"lat": parseFloat(location.lat), "lng": parseFloat(location.lng)},
+      map: this.state.map,
+      animation
+    });
+
+    marker.addListener('click', () => {
+      this.onMarkerClick(mProps, marker, null);
+    });
+
+    return marker;
+
+  })
+  this.setState({markers, markerProps})
+}
+
   render() {
+
+    let myProps = this.state.activeMarkerProps;
+    console.log("myProps = " + myProps)
     return (
       <div>
         <div className="pageContainer">
@@ -94,13 +165,14 @@ export class MapDisplay extends Component {
           <div className="map" ref="map">
             <Map
               google={this.props.google}
+              onReady={this.mapReady}
               initialCenter={{
                 lat: 33.056146,
                 lng: -97.065747
               }}
-              onClick={this.onMapClicked}
+              onClick={this.closeInfoWindow}
             >
-              {this.state.filteredLocations.map(marker => (
+              {/* {this.state.filteredLocations.map(marker => (
                 <Marker
                   position={{ lat: marker.lat, lng: marker.lng }}
                   title={marker.name}
@@ -110,14 +182,16 @@ export class MapDisplay extends Component {
                   cuisine={marker.cuisine}
                   uniqueID={marker.uniqueID}
                 />
-              ))}
+              ))} */}
 
               <InfoWindow
                 marker={this.state.activeMarker}
                 visible={this.state.showingInfoWindow}
+                onClose={this.closeInfoWindow}
               >
                 <div>
-                  <Information selectedPlace={this.state.selectedPlace} />
+                  <h3>{myProps && myProps.name}</h3>
+                  {/* <Information selectedPlace={myProps} /> */}
                 </div>
               </InfoWindow>
             </Map>
